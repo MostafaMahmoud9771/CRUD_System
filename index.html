@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUDS System</title>
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+  <body class="bg-black">
+    <main class="container">
+      <div class="w-75 mx-auto pt-5 text-white">
+        <h1 class="mb-4 fw-bolder">Product Management System</h1>
+
+        <div class="mb-4">
+          <label class="form-label mb-2 fw-bold" for="productName"
+            >Product Name</label
+          >
+          <input
+            oninput="validateProductName()"
+            type="text"
+            id="productName"
+            class="form-control"
+          />
+          <p class="text-danger d-none" id="invalidName">
+            Name must start with capital character and has (2-10) characters
+          </p>
+        </div>
+        <div class="mb-4">
+          <label class="form-label mb-2 fw-bold" for="productPrice"
+            >Product Price</label
+          >
+          <input
+            oninput="validateProductPrice()"
+            type="number"
+            id="productPrice"
+            class="form-control"
+          />
+          <p class="text-danger d-none" id="invalidPrice">
+            Price must be (1000 - 10000)
+          </p>
+        </div>
+        <div class="mb-4">
+          <label class="form-label mb-2 fw-bold" for="productModel"
+            >Product Model</label
+          >
+          <input
+            oninput="validateProductModel()"
+            type="text"
+            id="productModel"
+            class="form-control"
+          />
+          <p class="text-danger d-none" id="invalidModel">
+            Choose between (TV - Mobile - Laptop)
+          </p>
+        </div>
+        <div class="mb-4">
+          <label class="form-label mb-2 fw-bold" for="producDesc"
+            >Product Description</label
+          >
+          <textarea
+            oninput="validateProductDesc()"
+            id="producDesc"
+            cols="30"
+            rows="5"
+            class="form-control"
+          ></textarea>
+          <p class="text-danger d-none" id="invalidDesc">
+            Must be (1 - 250) characters
+          </p>
+        </div>
+
+        <button
+          onclick="addProduct()"
+          class="btn btn-primary mb-4"
+          id="addProductBtn"
+        >
+          Add Product
+        </button>
+        <button
+          onclick="updatefun()"
+          class="btn btn-warning mb-4 d-none"
+          id="updateProductBtn"
+        >
+          Update Product
+        </button>
+
+        <div class="my-4">
+          <h2>Search...</h2>
+          <input
+            oninput="searchItem(this.value)"
+            type="text"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <table class="table w-75 mx-auto text-center">
+        <thead>
+          <th>Index</th>
+          <th>Product Name</th>
+          <th>Product Price</th>
+          <th>Product Model</th>
+          <th>Product Description</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </main>
+    <script src="./Scripts/bootstrap.bundle.min.js"></script>
+    <script src="./Scripts/main.js"></script>
+  </body>
+</html>
