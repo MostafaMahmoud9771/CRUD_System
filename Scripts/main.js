@@ -3,6 +3,7 @@ var productPrice = document.getElementById("productPrice");
 var productModel = document.getElementById("productModel");
 var productDesc = document.getElementById("producDesc");
 var productList;
+var productID = 0;
 
 if (localStorage.getItem("productList") == null) {
   productList = [];
@@ -18,11 +19,17 @@ function addProduct() {
     validateProductModel() == true &&
     validateProductDesc() == true
   ) {
+    if (productList.length != 0) {
+      while (productID <= productList[productList.length - 1].id) {
+        productID++;
+      }
+    }
     var product = {
       name: productName.value,
       price: productPrice.value,
       model: productModel.value,
       desc: productDesc.value,
+      id: productID,
     };
     productList.push(product);
     displayProduct(productList);
@@ -40,8 +47,12 @@ function displayProduct(products) {
     <td>${products[i].price}</td>
     <td>${products[i].model}</td>
     <td>${products[i].desc}</td>
-    <td><button onclick="setUpdateProduct(${i})" class="btn btn-warning btn-sm">Update</button></td>
-    <td><button onclick="deleteProduct(${i})" class="btn btn-danger btn-sm">Delete</button></td>
+    <td><button onclick="setUpdateProduct(${
+      products[i].id
+    })" class="btn btn-warning btn-sm">Update</button></td>
+    <td><button onclick="deleteProduct(${
+      products[i].id
+    })" class="btn btn-danger btn-sm">Delete</button></td>
     </tr>
     `;
   }
@@ -55,7 +66,8 @@ function clearForm() {
   productDesc.value = "";
 }
 
-function deleteProduct(index) {
+function deleteProduct(sentID) {
+  index = productList.findIndex((item) => item.id === sentID);
   productList.splice(index, 1);
   localStorage.setItem("productList", JSON.stringify(productList));
   displayProduct(productList);
@@ -77,14 +89,15 @@ function searchItem(term) {
   displayProduct(foundedItems);
 }
 
-var productIndex = 0;
+var productIndex;
 
-function setUpdateProduct(item) {
-  productIndex = item;
-  productName.value = productList[item].name;
-  productPrice.value = productList[item].price;
-  productModel.value = productList[item].model;
-  productDesc.value = productList[item].desc;
+function setUpdateProduct(sentID) {
+  index = productList.findIndex((item) => item.id === sentID);
+  productIndex = index;
+  productName.value = productList[index].name;
+  productPrice.value = productList[index].price;
+  productModel.value = productList[index].model;
+  productDesc.value = productList[index].desc;
   document.getElementById("addProductBtn").classList.add("d-none");
   document
     .getElementById("updateProductBtn")
