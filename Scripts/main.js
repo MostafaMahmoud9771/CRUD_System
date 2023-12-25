@@ -32,9 +32,9 @@ function addProduct() {
       id: productID,
     };
     productList.push(product);
-    displayProduct(productList);
     clearForm();
     localStorage.setItem("productList", JSON.stringify(productList));
+    displayProduct(productList);
   }
 }
 
@@ -105,17 +105,24 @@ function setUpdateProduct(sentID) {
 }
 
 function updatefun() {
-  productList[productIndex].name = productName.value;
-  productList[productIndex].price = productPrice.value;
-  productList[productIndex].model = productModel.value;
-  productList[productIndex].desc = productDesc.value;
-  localStorage.setItem("productList", JSON.stringify(productList));
-  displayProduct(productList);
-  clearForm();
-  document.getElementById("addProductBtn").classList.remove("d-none");
-  document
-    .getElementById("updateProductBtn")
-    .classList.replace("d-block", "d-none");
+  if (
+    validateProductName() == true &&
+    validateProductPrice() == true &&
+    validateProductModel() == true &&
+    validateProductDesc() == true
+  ) {
+    productList[productIndex].name = productName.value;
+    productList[productIndex].price = productPrice.value;
+    productList[productIndex].model = productModel.value;
+    productList[productIndex].desc = productDesc.value;
+    localStorage.setItem("productList", JSON.stringify(productList));
+    displayProduct(productList);
+    clearForm();
+    document.getElementById("addProductBtn").classList.remove("d-none");
+    document
+      .getElementById("updateProductBtn")
+      .classList.replace("d-block", "d-none");
+  }
 }
 
 function validateProductName() {
